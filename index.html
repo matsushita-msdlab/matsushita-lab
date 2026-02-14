@@ -1,0 +1,438 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Shin-ya Matsushita | Mathematical Data Science Laboratory </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- 明るい雰囲気のレスポンシブデザイン用CSS -->
+  <style>
+    :root {
+      /* カラーテーマを明るく・爽やかに */
+      --bg-color: #fdfcfb;
+      --bg-accent: #fff7e6;
+      --card-bg: #ffffff;
+      --accent: #f97316;          /* オレンジ */
+      --accent-soft: #ffedd5;
+      --accent-strong: #ea580c;
+      --text-main: #1f2933;
+      --text-sub: #5f6c80;
+      --border-soft: #e5e7eb;
+      --max-width: 1040px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #fff7ed 0, #fdfcfb 40%, #f9fafb 100%);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--accent-strong);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* ヘッダーを明るいグラデーションに */
+    header {
+      background: linear-gradient(120deg, #ffedd5, #fee2e2);
+      color: var(--text-main);
+      padding: 24px 16px 28px;
+      border-bottom: 1px solid #fed7aa;
+    }
+
+    .header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: 1.9rem;
+    }
+
+    .title-block p {
+      margin: 6px 0 0;
+      color: #92400e;
+      font-size: 0.98rem;
+      font-weight: 500;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+
+    nav a {
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      color: #92400e;
+      border: 1px solid rgba(248, 171, 101, 0.6);
+      box-shadow: 0 2px 4px rgba(249, 115, 22, 0.10);
+    }
+
+    nav a:hover {
+      background: #fffbeb;
+      text-decoration: none;
+    }
+
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    section {
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 18px 18px 16px;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 10px 25px rgba(15,23,42,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(254, 243, 199, 0.55), transparent 60%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.22rem;
+      border-left: 4px solid var(--accent);
+      padding-left: 8px;
+    }
+
+    .card h3 {
+      margin-top: 12px;
+      margin-bottom: 6px;
+      font-size: 1.02rem;
+      color: var(--text-sub);
+    }
+
+    .card p {
+      margin: 6px 0;
+      font-size: 0.95rem;
+    }
+
+    .card ul {
+      margin: 6px 0 4px 18px;
+      padding: 0;
+      font-size: 0.95rem;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      background: var(--accent-soft);
+      color: #9a3412;
+      border: 1px solid #fed7aa;
+    }
+
+    .side-column section {
+      margin-bottom: 18px;
+    }
+
+    .highlight {
+      background: #ecfeff;
+      border: 1px solid #7dd3fc;
+    }
+
+    .highlight::before {
+      background: radial-gradient(circle at top left, rgba(186, 230, 253, 0.7), transparent 60%);
+    }
+
+    .muted {
+      color: var(--text-sub);
+      font-size: 0.9rem;
+    }
+
+    /* セクション間にうっすら区切り */
+    #research, #teaching, #students {
+      border-top: 3px solid rgba(249, 115, 22, 0.08);
+    }
+
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 14px 16px 18px;
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      background: linear-gradient(120deg, #fefce8, #f9fafb);
+    }
+
+    footer div {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="title-block">
+      <h1>数理データ科学研究室 <br> (Mathematical Data Science Laboratory)</h1>
+      <h2>松下 慎也 (Shin-ya Matsushita)</h2>
+      <p>最適化手法で「賢く動くシステム」を設計する</p>
+    </div>
+
+    <nav>
+      <a href="#about">About / 略歴</a>
+      <a href="#research">Research / 研究</a>
+      <a href="#teaching">Teaching / 教育</a>
+      <a href="#engagement">Regional &amp; International</a>
+      <a href="#students">For Students</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- メインカラム -->
+  <div>
+
+    <section id="about" class="card">
+      <h2>About / 略歴</h2>
+      <p>
+        松下 慎也は、不動点理論・数理最適化などの応用数学を基盤として、
+        データサイエンス・情報システム・制御への応用研究に取り組んでいる研究者です。
+      </p><br>
+      <p>
+        秋田県立大学 システム科学技術学部 経営システム工学科 の教員として、研究・教育に加え、
+        秋田地域との連携や、海外大学との国際共同研究にも取り組んでいます。
+      </p><br>
+      <p>
+        Research interests: fixed point theory, monotone operator theory, convex optimization,
+        optimization algorithms for control and information systems.
+      </p>
+      <div class="pill-list">
+        <span class="pill">Fixed Point Theory</span>
+        <span class="pill">Monotone Operators</span>
+        <span class="pill">Convex / Nonconvex Optimization</span>
+        <span class="pill">Control &amp; Information Systems</span>
+      </div>
+    </section>
+
+    <section id="research" class="card">
+      <h2>Research / 研究</h2>
+
+      <h3>Research themes</h3>
+      <ul>
+        <li>Optimization for Information and Control Systems (learning, estimation, planning)</li>
+        <li>Sparse Optimal Control and Variational Inequalities</li>
+        <li>Fixed Point Theory and Monotone Operators in Hilbert Spaces</li>
+        <li>Convex and Nonconvex Optimization Algorithms</li>
+      </ul><br>
+
+      <p>
+        これらの理論的研究を通じて、データ解析・制御・情報システムにおける
+        「安定で高速なアルゴリズム」の設計を目指しています。
+      </p>
+
+      <h3>Selected publications</h3>
+      <p>
+        Full list is available on
+        <a href="https://researchmap.jp/read0132329" target="_blank" rel="noopener noreferrer">Researchmap</a>, 
+        <a href="https://scholar.google.com/citations?user=E6WMyXwAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+        and
+        <a href="https://nrid.nii.ac.jp/ja/nrid/1000020435449/" target="_blank" rel="noopener noreferrer">KAKEN</a>.
+      </p>
+      <ul>
+        <li>Representative papers in fixed point algorithms and optimization (see Researchmap and Google Scholar).</li>
+        <li>
+          <a href="https://www.cambridge.org/core/journals/bulletin-of-the-australian-mathematical-society/article/on-the-convergence-rate-of-the-krasnoselskiimann-iteration/4A3458CE7DE26ED2D70666FDD52B92A7" target="_blank" rel="noopener noreferrer">
+            Paper
+          </a>
+          selected for "The 2023 Mahoney-Neumann-Room Prize" 
+              <a href="https://www.cambridge.org/core/societies/australian-mathematical-society-austms/mahony-neumann-room-prize" target="_blank" rel="noopener noreferrer">
+            shortlist 
+          </a>
+          (Australian Mathematical Society).
+        </li>
+      </ul><br>
+
+      <h3>For prospective students（研究に参加したい学生へ）</h3>
+      <p>
+        この研究室では、理論だけでなく、Python や MATLAB を用いたアルゴリズム実装・数値実験も重視します。
+      </p>
+      <ul>
+        <li>数式等でモデル化し、プログラムとして動かす一連のプロセスの習得</li>
+        <li>最適化アルゴリズムの設計と実装</li>
+        <li>機械学習・制御・データサイエンスへの応用</li>
+      </ul>
+    </section>
+
+    <section id="teaching" class="card">
+      <h2>Teaching / 教育</h2>
+
+      <h3>Current courses</h3>
+      <ul>
+        <li>Advanced Mathematical Optimization (Graduate course) / 数理最適化特論 (大学院)</li>
+        <li>Optimization MethodsⅡ (Undergraduate course) / 最適化手法Ⅱ (学部)</li>
+        <li>Mathematical Statistics II (Undergraduate course) / 数理統計Ⅱ (学部)</li>
+        <li>Database (Undergraduate course) / データベース (学部)</li>
+        <li>Linear Algebra (Undergraduate course) / 線形代数Ⅰ (学部)</li>
+      </ul>
+<br>
+      <h3>Teaching philosophy</h3>
+      <p>
+        私の教育方針は「理論と実装の両立」です。数理的モデルに基づく解析を重視しつつ、
+        それを実際のアルゴリズムとして実装し、データに対して動かすところまでを一連の流れとして指導します。
+      </p><br>
+      <p>
+        地方大学からでも、世界水準の研究や国際共同研究にアクセスできることを学生に体験してもらうことを目標としています。
+      </p><br>
+
+      <p>また、最近では生成AIを研究・学習の補助ツールとして活用することも重視しています。
+文献探索やコードのたたき台作成、英語論文のドラフト確認など、人間が行うべき「思考」と「判断」を中心に据えながら、生成AIを効率化のためのパートナーとして位置づけることを学生に体験してもらいます。
+</p><br>
+
+<p>
+AIの出力を鵜呑みにせず、数理的な妥当性や再現性を自分の頭で検証する習慣を身につけることを重要な教育目標の一つとしています。
+</p>
+    </section>
+
+  </div>
+
+  <!-- サイドカラム -->
+  <div class="side-column">
+
+    <section id="engagement" class="card">
+      <h2>Regional &amp; International / 地域・国際連携</h2>
+
+      <h3>International collaboration（国際連携）</h3>
+      <p>
+        海外の理工系大学との共同研究・教員交流・学生交流を推進し、
+        将来的なダブルディグリーや共同博士指導の枠組み構築を目指しています。<br><br>
+        過去に実施した国際交流プログラム : 
+      </p>
+      <ul>
+        <li>
+          <a href="https://ssp.jst.go.jp/report/2023/k_vol128.html" target="_blank" rel="noopener noreferrer">
+            Khon Kaen University (Thailand)
+          </a> (Sakura Science Exchange Program (JST))
+        </li>
+        <li>
+          <a href="https://www.akita-pu.ac.jp/oshirase/oshirase2025/8925" target="_blank" rel="noopener noreferrer">
+            Lanzhou University and Northwest Minzu University (China)
+          </a> (International Exchange Program (Akita Prefectural University))
+        </li>
+      </ul><br>
+      <p>
+        We are interested in joint supervision of graduate students in the fields of
+        engineering and applied mathematics, as well as double degree programs between
+        Japanese and overseas universities.
+      </p>
+    </section>
+
+    <section id="students" class="card highlight">
+      <h2>For Students / 研究室希望の方へ</h2>
+
+      <h3>歓迎する学生像</h3>
+      <p>研究室では、生成AIも積極的に活用しながら研究を進めています。
+例えば、関連する論文の候補を素早く洗い出したり、アルゴリズムの疑似コードを生成して検証したり、英語プレゼンや論文の言い回しを整えたりする際にAIを用います。
+</p><br>
+<p>一方で、数式による厳密な議論や証明、数値実験の設計・解釈といったコアの部分は人間が担うべき領域であり、「AIに任せる部分」と「自分で考え抜く部分」を意識的に切り分けて使いこなせる学生を育てたいと考えています。
+  </p>
+      <ul>
+        <li>数理科学（数理統計・最適化など）やその応用に興味があり、理論と応用の両方に取り組んでみたい人</li>
+        <li>海外の研究者・学生たちと協力して研究を推進したい人</li>
+        <li>Python や MATLAB でのプログラミングに挑戦したい人</li>
+        <li>生成AIを「答えをもらう道具」ではなく、「自分の思考を深める補助ツール」として活用してみたい人</li>
+        <li>将来、大学院進学・海外留学や研究開発職を視野に入れている人</li>
+      </ul>
+<br>
+      <h3>これまでの研究テーマ例</h3>
+      <ul>
+        <li>実データを用いた最適化モデルの構築と検証</li>
+        <li>
+          <a href="https://www.mdpi.com/2075-1680/14/11/843" target="_blank" rel="noopener noreferrer">
+            欠損の多い高次元データにおける回帰分析
+          </a>
+        </li>
+        <li>
+          <a href="http://hdl.handle.net/2433/291391" target="_blank" rel="noopener noreferrer">
+            スパース最適制御による省エネ運転計画
+          </a>
+        </li>
+        <li>不動点反復法の収束加速と機械学習アルゴリズムへの応用</li>
+      </ul>
+    </section>
+
+    <section id="contact" class="card">
+      <h2>Contact</h2>
+      <p>
+        Email:
+        <a href="mailto:matsushita@akita-pu.ac.jp">matsushita@akita-pu.ac.jp</a><br><br>
+        Affiliation: <br> Department of Management Systems Engineering,<br>
+        Akita Prefectural University<br><br>
+        Address: <br> 84-4 Ebinokuchi, Tsuchiya, Yurihonjo City 015-0055, Japan
+      </p><br>
+      <p class="muted">
+        Prospective students and collaborators are welcome to contact me by email.
+      </p>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div>
+    <span>&copy; Shin-ya Matsushita</span>
+    <span class="muted">Last updated: 2026.2.14</span>
+  </div>
+</footer>
+
+</body>
+</html>
